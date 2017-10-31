@@ -9,10 +9,10 @@ block content
           input.form-control(type='text', name='title', autofocus, placeholder='Search for...')
           span.input-group-btn
             button.btn.btn-default(type='submit') Add Task!
-
-      ol.list-group
-        each task in tasks
-          li.list-group-item.classCreate= task.title
-            button.btn.btn-default.delete(data-id=task.id)(type='delete') Delete
-            button.btn.btn-default.done(data-id=task.id)(type='delete') Done
-      button.allAsCompleted.btn.btn-default All done !
+      p= noTasks
+        ol.list-group
+          each task in tasks
+            li.list-group-item.classCreate= task.title
+              button.btn.btn-default.delete(data-id=task.id) Delete
+              button.btn.btn-default.done(data-id=task.id) Done
+        button.allAsCompleted.btn.btn-default All done !

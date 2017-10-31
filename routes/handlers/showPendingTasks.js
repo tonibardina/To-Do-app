@@ -2,8 +2,15 @@ const { getPendingTasks } = require('../../services/tasks')
 
 function showPendingTasks (req, res) {
   const title = 'TODO Tasks'
+  const noTasks = 'No tasks'
   const todoTasks = getPendingTasks()
-  res.render('todo', { tasks: todoTasks, title })
+
+  if (todoTasks[0] !== undefined) {
+    res.render('todo', { tasks: todoTasks, title })
+  } else {
+    console.log('no tasks')
+    res.render('todo', {noTasks, tasks: todoTasks, title})
+  }
 }
 
 module.exports = showPendingTasks

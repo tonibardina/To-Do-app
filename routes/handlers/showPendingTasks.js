@@ -8,7 +8,6 @@ function showPendingTasks (req, res) {
   if (todoTasks[0] !== undefined) {
     res.render('todo', { tasks: todoTasks, title })
   } else {
-    console.log('no tasks')
     res.render('todo', {noTasks, tasks: todoTasks, title})
   }
 }

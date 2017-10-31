@@ -20,7 +20,7 @@ function addTask (title) {
   const newTask = {
     title,
     id: ++counter,
-    createdAt: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
+    createdAt: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
     completed: false
   }
   tasks.push(newTask)

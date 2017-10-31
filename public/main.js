@@ -7,8 +7,11 @@ $('.delete').on('click', function(e){
   $.ajax({ url, method })
     .then(response => {
       console.log(response)
-      window.location.href = '/'
+      setTimeout(function () {
+        window.location.href = '/'
+      }, 350)
     })
+  $(this).parent().html('<h2>Task was removed!</h2>')
 })
 
 $('.done').on('click', function(e){

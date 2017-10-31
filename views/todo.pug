@@ -1,0 +1,17 @@
+extends layout/index
+
+block content
+  .row
+    .col-md-6.col-md-offset-3
+      h1= title
+      form.form-inline.add-task-form(action='/new', method='POST')
+        .input-group
+          input.form-control(type='text', name='title', autofocus, placeholder='Search for...')
+          span.input-group-btn
+            button.btn.btn-default(type='submit') Add Task!
+
+      ol.list-group
+        each task in tasks
+          li.list-group-item.classCreate= task.title
+            button.btn.btn-default.delete(data-id=task.id)(type='delete') Delete
+            button.btn.btn-default.add-task(type='delete') Done

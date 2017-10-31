@@ -14,7 +14,7 @@
   {
     "id": 3,
     "title": "Buy Water",
-    "completed": true,
+    "completed": false,
     "createdAt":1509376608651
   }
 ]

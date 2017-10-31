@@ -14,4 +14,4 @@ block content
         each task in tasks
           li.list-group-item.classCreate= task.title
             button.btn.btn-default.delete(data-id=task.id)(type='delete') Delete
-            button.btn.btn-default.add-task(type='delete') Done
+            button.btn.btn-default.done(data-completed=task.completed)(type='delete') Done

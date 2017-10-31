@@ -10,3 +10,10 @@ $('.delete').on('click', function(e){
       window.location.href = '/'
     })
 })
+
+$('.done').on('click', function(e){
+  let completedOrNot = $(this).data('completed')
+  completedOrNot = true
+  console.log('completed!')
+  window.location.href = '/'
+})

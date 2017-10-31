@@ -24,4 +24,22 @@ function addTask (title) {
   tasks.push(newTask)
 }
 
-module.exports = { getPendingTasks, getCompletedTasks, addTask, removeTask }
+function changeStatusToCompleted (id) {
+  tasks = tasks.map(task => {
+    if (task.id === +id) {
+      task.completed = true
+    }
+    return task
+  })
+}
+
+function markAllAsCompleted () {
+  tasks = tasks.map(task => {
+    if (task.comppleted !== true) {
+      task.completed = true
+    }
+    return task
+  })
+}
+
+module.exports = { getPendingTasks, getCompletedTasks, addTask, removeTask, changeStatusToCompleted, markAllAsCompleted }

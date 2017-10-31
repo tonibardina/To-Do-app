@@ -12,8 +12,26 @@ $('.delete').on('click', function(e){
 })
 
 $('.done').on('click', function(e){
-  let completedOrNot = $(this).data('completed')
-  completedOrNot = true
-  console.log('completed!')
-  window.location.href = '/'
+  const idTaskEntry = $(this).data('id')
+
+  const url = `/task/${idTaskEntry}`
+  const method = 'GET'
+
+  $.ajax({ url, method })
+    .then(response => {
+      console.log(response)
+      window.location.href = '/'
+    })
+})
+
+$('.allAsCompleted').on('click', function(e){
+
+  const url = `/markAll`
+  const method = 'GET'
+
+  $.ajax({ url, method })
+    .then(response => {
+      console.log(response)
+      window.location.href = '/'
+    })
 })

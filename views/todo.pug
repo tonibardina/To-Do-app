@@ -13,6 +13,8 @@ block content
         ol.list-group
           each task in tasks
             li.list-group-item.classCreate= task.title
+              p= task.createdAt
               button.btn.btn-default.delete(data-id=task.id) Delete
               button.btn.btn-default.done(data-id=task.id) Done
+
         button.allAsCompleted.btn.btn-default All done !

@@ -1,3 +1,5 @@
+var moment = require('moment')
+
 let tasks = require('../data/tasks.json')
 
 function getPendingTasks () {
@@ -18,7 +20,7 @@ function addTask (title) {
   const newTask = {
     title,
     id: ++counter,
-    createdAt: +new Date(),
+    createdAt: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
     completed: false
   }
   tasks.push(newTask)

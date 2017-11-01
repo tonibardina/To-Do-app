@@ -1,4 +1,5 @@
 $('.delete').on('click', function(e){
+  const $liContainer = $(this).closest('li')
   const idTaskEntry = $(this).data('id')
 
   const url = `/task/${idTaskEntry}`
@@ -8,13 +9,14 @@ $('.delete').on('click', function(e){
     .then(response => {
       console.log(response)
       setTimeout(function () {
-        window.location.href = '/'
+        $liContainer.remove()
       }, 350)
     })
   $(this).parent().html('<h2>Task was removed!</h2>')
 })
 
-$('.done').on('click', function(e){
+$('.done').on('click', function (e) {
+  const $liContainer = $(this).closest('li')
   const idTaskEntry = $(this).data('id')
 
   const url = `/task/${idTaskEntry}`
@@ -23,11 +25,11 @@ $('.done').on('click', function(e){
   $.ajax({ url, method })
     .then(response => {
       console.log(response)
-      window.location.href = '/'
+      $liContainer.addClass('markAsDone')
     })
 })
 
-$('.allAsCompleted').on('click', function(e){
+$('.allAsCompleted').on('click', function (e) {
 
   const url = `/markAll`
   const method = 'GET'

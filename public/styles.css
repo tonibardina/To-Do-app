@@ -1,3 +1,7 @@
 .add-task-form {
   margin-bottom: 20px;
 }
+
+.markAsDone {
+  background-color: grey;
+}

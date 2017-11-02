@@ -1,7 +1,38 @@
+/*header elements*/
+
+.login {
+  text-align: right;
+}
+
 .add-task-form {
   margin-bottom: 20px;
 }
 
-.markAsDone {
-  background-color: grey;
+.header {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+}
+
+.todo{
+  font-size: 30px;
+}
+
+.completed {
+  margin-left: 20px;
+}
+
+.plusButton {
+  max-height: 18px;
+}
+
+/*elements of the list*/
+
+.classCreate {
+
+}
+
+.list-button {
+  margin: 5px;
+
 }

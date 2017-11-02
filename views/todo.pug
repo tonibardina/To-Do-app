@@ -3,18 +3,24 @@ extends layout/index
 block content
   .row
     .col-md-6.col-md-offset-3
-      h1.principal= title
-      form.form-inline.add-task-form(action='/new', method='POST')
-        .input-group
-          input.form-control(type='text', name='title', autofocus, required, placeholder='Search for...')
-          span.input-group-btn
-            button.btn.btn-default(type='submit') Add Task!
-      p= noTasks
-        ol.list-group
-          each task in tasks
-            li.list-group-item.classCreate= task.title
-              p= task.createdAt
-              button.btn.btn-default.delete(data-id=task.id) Delete
-              button.btn.btn-default.done(data-id=task.id) Done
+      .login
+        h3.logbutton Login
+      .header
+        h1.todo To-Do
+        h2.completed Done
+      .body-todo  
+        form.form-inline.add-task-form(action='/new', method='POST')
+          .input-group
+            input.form-control(type='text', name='title', autofocus, required, placeholder='Search for...')
+            span.input-group-btn
+              button.btn.btn-default(type='submit')
+                img.plusButton(src='/img/add.png', alt='??')
+        p= noTasks
+          ol.list-group
+            each task in tasks
+              li.list-group-item.classCreate= task.title
+                p= task.createdAt
+                button.btn.btn-default.delete.list-button(data-id=task.id) Delete
+                button.btn.btn-default.done.list-button(data-id=task.id) Done
 
-        button.allAsCompleted.btn.btn-default All done !
+          button.allAsCompleted.btn.btn-default All done !

@@ -40,3 +40,7 @@ $('.allAsCompleted').on('click', function (e) {
       window.location.href = '/'
     })
 })
+
+$('.completed').on('click', function (e) {
+  window.location.href = '/completed'
+})

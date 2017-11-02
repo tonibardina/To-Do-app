@@ -2,25 +2,25 @@ extends layout/index
 
 block content
   .row
-    .col-md-6.col-md-offset-3
-      .login
-        h3.logbutton Login
-      .header
-        h1.todo To-Do
-        h2.completed Done
-      .body-todo  
-        form.form-inline.add-task-form(action='/new', method='POST')
-          .input-group
-            input.form-control(type='text', name='title', autofocus, required, placeholder='Search for...')
-            span.input-group-btn
-              button.btn.btn-default(type='submit')
-                img.plusButton(src='/img/add.png', alt='??')
-        p= noTasks
-          ol.list-group
-            each task in tasks
-              li.list-group-item.classCreate= task.title
-                p= task.createdAt
-                button.btn.btn-default.delete.list-button(data-id=task.id) Delete
-                button.btn.btn-default.done.list-button(data-id=task.id) Done
+    .col-md-8.col-md-offset-2
+      h1= title
+      form.form-inline.add-task-form(action='/tasks', method='POST')
+        .input-group
+          input.form-control(type='text', name='title', autofocus, placeholder='Search for...')
+          span.input-group-btn
+            button.btn.btn-default(type='submit') Add Task!
 
-          button.allAsCompleted.btn.btn-default All done !
+      button.btn.btn-primary.btn-sm.complete-all Mark all as completed
+      ul.list-group.todo-tasks
+        each task in tasks
+          li.list-group-item.task-item(data-id=task.id)
+            .actions.pull-left
+              button.btn.btn-success.btn-xs.mark-as-done Done
+            span.title= task.title
+            small= moment(task.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+            form.edit-form(action="#")
+              input.title(value=task.title)
+            button.btn.btn-primary.btn-xs.edit-task
+              i.glyphicon.glyphicon-pencil
+            .actions.pull-right
+              button.btn.btn-danger.btn-xs.remove-task Remove

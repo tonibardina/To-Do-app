@@ -1,11 +1,9 @@
 const { addTask } = require('../../services/tasks')
 
-function _addTask (req, res) {
+function _addTask( req, res ) {
   const { title } = req.body
-  if (title.trim().length) {
-    addTask(title)
-  }
-  res.redirect('/')
+  addTask(title)
+  res.redirect("/tasks/todo")
 }
 
 module.exports = _addTask

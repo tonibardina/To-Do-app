@@ -1,50 +1,49 @@
-var moment = require('moment')
+const uuid = require('uuid/v1')
 let tasks
 
-function setTasks (sessionTasks) {
+function setTasks( sessionTasks ) {
   tasks = sessionTasks
 }
 
-function getPendingTasks () {
-  return tasks.filter(task => !task.completed)
+function getPendingTasks() {
+  return tasks.filter( task => !task.completed )
 }
 
-function getCompletedTasks () {
-  return tasks.filter(task => task.completed)
+function getCompletedTasks() {
+  return tasks.filter( task => task.completed )
 }
 
-function removeTask (id) {
-  tasks = tasks.filter(post => post.id !== +id)
-}
-
-let counter = 10
-
-function addTask (title) {
+function addTask(title) {
   const newTask = {
     title,
-    id: ++counter,
-    createdAt: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+    id: uuid(),
+    createdAt: +new Date(),
     completed: false
   }
   tasks.push(newTask)
 }
 
-function changeStatusToCompleted (id) {
-  tasks = tasks.map(task => {
-    if (task.id === +id) {
-      task.completed = true
+function removeTask(id) {
+  tasks = tasks.filter( task => task.id !== id)
+}
+
+function editTask(id, dataToEdit ) {
+  const { completed, title } = dataToEdit
+  tasks = tasks.map( task => {
+    if (task.id === id) {
+      task.completed = completed || task.completed
+      task.title = title || task.title
     }
     return task
   })
 }
 
-function markAllAsCompleted () {
-  tasks = tasks.map(task => {
-    if (task.comppleted !== true) {
-      task.completed = true
-    }
+function updateAllTasks( dataToEdit ) {
+  const { completed } = dataToEdit
+  tasks = tasks.map( task => {
+    task.completed = completed || task.completed
     return task
   })
 }
 
-module.exports = { setTasks, getPendingTasks, getCompletedTasks, addTask, removeTask, changeStatusToCompleted, markAllAsCompleted }
+module.exports = { setTasks, getPendingTasks, getCompletedTasks, addTask, removeTask, editTask, updateAllTasks }

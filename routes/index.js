@@ -2,22 +2,30 @@ const express = require('express')
 
 const router = express.Router()
 
-const showPendingTasks = require('./handlers/showPendingTasks.js')
-const showCompletedTasks = require('./handlers/showCompletedTasks.js')
-const addTask = require('./handlers/addTask.js')
-const removeTaskById = require('./handlers/removeTaskById.js')
-const markAsCompleted = require('./handlers/markAsCompleted.js')
-const markAllTasks = require('./handlers/markAllTasks.js')
+const showPendingTasks = require('./handlers/showPendingTasks')
+const showCompletedTasks = require('./handlers/showCompletedTasks')
+const addTask = require('./handlers/addTask')
+const showLogin = require('./handlers/showLogin')
+const removeTask = require('./handlers/removeTask')
+const editTask = require('./handlers/editTask')
+const updateAllTasks = require('./handlers/updateAllTasks')
+const handleLogin = require('./handlers/handleLogin')
+const showError = require('./handlers/showError')
 
-router.get('/', showPendingTasks)
-router.get('/completed', showCompletedTasks)
+router.get('/', showLogin)
+
+router.post('/login', handleLogin)
+router.get('/error', showError)
+
+router.get('/tasks/todo', showPendingTasks)
+router.get('/tasks/completed', showCompletedTasks)
+
+router.route('/tasks')
+  .post(addTask)
+  .put(updateAllTasks)
 
 router.route('/task/:id')
-  .delete(removeTaskById)
-  .get(markAsCompleted)
-
-router.post('/new', addTask)
-
-router.get('/markAll', markAllTasks)
+  .delete(removeTask)
+  .put(editTask)
 
 module.exports = router

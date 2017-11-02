@@ -1,46 +1,68 @@
-$('.delete').on('click', function(e){
+$('.remove-task').on('click', function(e) {
   const $liContainer = $(this).closest('li')
-  const idTaskEntry = $(this).data('id')
+  const id = $liContainer.data('id')
 
-  const url = `/task/${idTaskEntry}`
+  const url = `/task/${id}`
   const method = 'DELETE'
 
-  $.ajax({ url, method })
-    .then(response => {
-      console.log(response)
-      setTimeout(function () {
-        $liContainer.remove()
-      }, 350)
+  $.ajax({ url, method})
+    .then( msg => {
+      $liContainer.remove()
+      toastr.success(msg)
     })
-  $(this).parent().html('<h2>Task was removed!</h2>')
+
 })
 
-$('.done').on('click', function (e) {
+$('.mark-as-done').on('click', function(e) {
   const $liContainer = $(this).closest('li')
-  const idTaskEntry = $(this).data('id')
+  const id = $liContainer.data('id')
 
-  const url = `/task/${idTaskEntry}`
-  const method = 'GET'
+  const url = `/task/${id}`
+  const method = 'PUT'
+  const data = { completed: true }
 
-  $.ajax({ url, method })
-    .then(response => {
-      console.log(response)
-      $liContainer.addClass('markAsDone')
+  $.ajax({ url, method, data })
+    .then( msg => {
+      $liContainer.addClass('done')
+      toastr.success(msg)
     })
+
 })
 
-$('.allAsCompleted').on('click', function (e) {
+$('.edit-task').on('click', function(e) {
+  const $liContainer = $(this).closest('li')
+  const id = $liContainer.data('id')
 
-  const url = `/markAll`
-  const method = 'GET'
-
-  $.ajax({ url, method })
-    .then(response => {
-      console.log(response)
-      window.location.href = '/'
-    })
+  $liContainer.addClass('edit-mode')
 })
 
-$('.completed').on('click', function (e) {
-  window.location.href = '/completed'
+$('.edit-form').on('submit', function(e) {
+  e.preventDefault()
+  const $liContainer = $(this).closest('li')
+  const id = $liContainer.data('id')
+  const editedTitle = $(this).find('input').val()
+
+  const url = `/task/${id}`
+  const method = 'PUT'
+  const data = { title: editedTitle }
+
+  $.ajax({ url, method, data })
+    .then( msg => {
+      $liContainer.find('span').text(editedTitle)
+      $liContainer.removeClass('edit-mode')
+      toastr.success(msg)
+    })
+
+})
+
+$('.complete-all').on('click', function() {
+
+  const url = `/tasks`
+  const method = 'PUT'
+  const data = { completed: true }
+
+  $.ajax({ url, method, data })
+    .then( response => {
+      $('.todo-tasks li').addClass('done')
+    })
 })

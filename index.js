@@ -1,8 +1,11 @@
 const express = require('express')
-var moment = require('moment')
 const bodyParser = require('body-parser')
-var cookieSession = require('cookie-session')
-var debug = require('debug')('middleware-log')
+const moment = require('moment')
+const cookieSession = require('cookie-session')
+const debug = require('debug')('middleware-log')
+const flash = require('connect-flash')
+
+require('dotenv').load()
 
 const app = express()
 
@@ -10,46 +13,33 @@ const routes = require('./routes')
 const { setTasks } = require('./services/tasks')
 
 app.set('view engine', 'pug')
+app.locals.moment = moment
+
 app.use(express.static('public'))
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
 app.use(cookieSession({
-  name: 'taks',
-  keys: ['dfkjrkjf'],
-
-  // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  name: 'jm-cookie-session',
+  keys: ['20a69e67-7632-4650-9583-eeec24b276f0']
 }))
 
+app.use(flash());
+
 app.use((req, res, next) => {
-  req.session.tasks = req.session.tasks || []
+  req.session.tasks = req.session.tasks || []
   setTasks(req.session.tasks)
   next()
 })
 
-app.use((req, res, next) => {
-  if (Object.keys(req.body).length) {
-    debug('This is req.body: ')
-    debug(req.body)
-    debug(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
-  }
-  if (Object.keys(req.params).length) {
-    debug('This is req.params: ')
-    debug(req.params)
-    debug(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
-  }
-  if (req.session) {
-    debug('This is req.session: ')
-    debug(req.session)
-    debug(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
-    debug('---------------')
-  }
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use( (req,res,next) => {
+  const { method, path, body } = req
+  debug({ method, path, body })
   next()
 })
 
 app.use(routes)
 
 app.listen(3000)
-console.log('Listening on PORT 3000...')
+console.log('Listening on PORT 3000...');

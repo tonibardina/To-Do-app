@@ -1,6 +1,9 @@
 var moment = require('moment')
+let tasks
 
-let tasks = require('../data/tasks.json')
+function setTasks (sessionTasks) {
+  tasks = sessionTasks
+}
 
 function getPendingTasks () {
   return tasks.filter(task => !task.completed)
@@ -44,4 +47,4 @@ function markAllAsCompleted () {
   })
 }
 
-module.exports = { getPendingTasks, getCompletedTasks, addTask, removeTask, changeStatusToCompleted, markAllAsCompleted }
+module.exports = { setTasks, getPendingTasks, getCompletedTasks, addTask, removeTask, changeStatusToCompleted, markAllAsCompleted }

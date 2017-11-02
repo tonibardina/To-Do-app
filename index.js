@@ -2,6 +2,7 @@ const express = require('express')
 var moment = require('moment')
 const bodyParser = require('body-parser')
 var cookieSession = require('cookie-session')
+var debug = require('debug')('middleware-log')
 
 const app = express()
 
@@ -30,20 +31,20 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   if (Object.keys(req.body).length) {
-    console.log('This is req.body: ')
-    console.log(req.body)
-    console.log(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
+    debug('This is req.body: ')
+    debug(req.body)
+    debug(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
   }
   if (Object.keys(req.params).length) {
-    console.log('This is req.params: ')
-    console.log(req.params)
-    console.log(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
+    debug('This is req.params: ')
+    debug(req.params)
+    debug(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
   }
   if (req.session) {
-    console.log('This is req.session: ')
-    console.log(req.session)
-    console.log(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
-    console.log('---------------')
+    debug('This is req.session: ')
+    debug(req.session)
+    debug(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
+    debug('---------------')
   }
   next()
 })
